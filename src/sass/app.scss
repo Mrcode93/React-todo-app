@@ -1,0 +1,239 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+$primary-color: #6f57eb; // Blue
+$secondary-color: #190645; // Gray
+$success-color: #28a745; // Green
+$danger-color: #dc3545; // Red
+$warning-color: #ffc107; // Yellow
+$info-color: #17a2b8; // Teal
+$light-color: #f8f9fa; // Light gray
+$dark-color: #343a40; // Dark gray
+//! shadows
+$box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$button-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
+//! buttons
+$transition-duration: 0.3s;
+$transition-ease: ease-in-out;
+//! border-raius
+$border-radius: 5px;
+.todo-item {
+  background-color: $light-color;
+  box-shadow: $box-shadow;
+  transition: background-color $transition-duration $transition-ease;
+  &:hover {
+    background-color: $dark-color;
+    transition: background-color $transition-duration $transition-ease;
+  }
+}
+
+@mixin flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: $light-color;
+  font-family: "Cairo", sans-serif;
+  // @include flex;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  @include flex;
+}
+
+.App {
+  transition: $transition-ease $transition-duration;
+  h1 {
+    color: $dark-color;
+  }
+  width: 100%;
+  height: 100%;
+  @include flex;
+  flex-direction: column;
+  form {
+    @include flex;
+    flex-direction: column;
+    margin-top: 10px;
+    input {
+      outline: none;
+      &:focus {
+        outline: none;
+      }
+      font-size: 16px;
+    }
+    width: 80%;
+    height: 100px;
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid $primary-color;
+      height: 50%;
+      text-align: center;
+      font-family: "Cairo", sans-serif;
+    }
+    input[type="submit"] {
+      width: 100%;
+      height: 50%;
+      cursor: pointer;
+      background-color: $primary-color;
+      // box-shadow: $button-shadow;
+      color: $light-color;
+      font-family: "Cairo", sans-serif;
+      // height: 100%;
+      border: none;
+      transition: background-color $transition-duration $transition-ease;
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transition: background-color $transition-duration $transition-ease;
+      }
+    }
+  }
+  .list {
+    transition: $transition-ease $transition-duration;
+    width: 80%;
+    height: fit-content;
+    @include flex;
+    flex-direction: column;
+    .item {
+      transition: $transition-ease $transition-duration;
+      width: 100%;
+      height: 80px;
+      @include flex;
+      flex-direction: column;
+      background-color: $light-color;
+      border: $primary-color solid 2px;
+      margin: 10px auto;
+      .text {
+        width: 100%;
+        height: 50%;
+        text-align: center;
+        font-size: 18px;
+        border-bottom: $primary-color 2px solid;
+        color: $dark-color;
+        transition: $transition-ease $transition-duration;
+        -webkit-transition: $transition-ease $transition-duration;
+        -moz-transition: $transition-ease $transition-duration;
+        -ms-transition: $transition-ease $transition-duration;
+        -o-transition: $transition-ease $transition-duration;
+        &.checked {
+          opacity: 0.6;
+          text-decoration: line-through;
+        }
+      }
+      .btns {
+        width: 100%;
+        height: 50%;
+        @include flex;
+        justify-content: space-around;
+        background-color: #e0dfdf;
+        input[type="checkbox"] {
+          width: 30px;
+          height: 30px;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          border: 2px solid #7057eb73;
+          border-radius: 4px;
+          outline: none;
+          cursor: pointer;
+          position: relative;
+          &::before {
+            content: "";
+            display: block;
+            width: 25px;
+            height: 25px;
+            background-color: $info-color;
+            border-radius: 2px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.2s ease-in-out;
+          }
+          &:checked::before {
+            transform: translate(-50%, -50%) scale(1);
+            -webkit-transform: translate(-50%, -50%) scale(1);
+            -moz-transform: translate(-50%, -50%) scale(1);
+            -ms-transform: translate(-50%, -50%) scale(1);
+            -o-transform: translate(-50%, -50%) scale(1);
+          }
+        }
+        .delete {
+          cursor: pointer;
+          height: 30px;
+          width: 60px;
+          border: none;
+          background-color: $danger-color;
+          color: $light-color;
+          border-radius: $border-radius;
+          -webkit-border-radius: $border-radius;
+          -moz-border-radius: $border-radius;
+          -ms-border-radius: $border-radius;
+          -o-border-radius: $border-radius;
+        }
+        .edit {
+          cursor: pointer;
+          height: 30px;
+          width: 60px;
+          border: none;
+          background-color: $success-color;
+          color: $light-color;
+          border-radius: $border-radius;
+          -webkit-border-radius: $border-radius;
+          -moz-border-radius: $border-radius;
+          -ms-border-radius: $border-radius;
+          -o-border-radius: $border-radius;
+        }
+      }
+    }
+  }
+  .filters {
+    margin: 20px 0;
+    width: 80%;
+    height: 40px;
+    @include flex;
+    justify-content: space-between;
+    button {
+      height: 100%;
+      width: calc((100% / 3) - 10px);
+      color: $primary-color;
+      background-color: $light-color;
+      border: 2px solid $primary-color;
+      outline: none;
+      cursor: pointer;
+      font-family: "Cairo", sans-serif;
+      &:hover {
+        background-color: $info-color;
+        color: $light-color;
+      }
+    }
+    .active {
+      background-color: $info-color;
+      color: $light-color;
+    }
+  }
+}
+
+.animated {
+  animation: slowDown alternate linear 1s;
+  -webkit-animation: slowDown alternate linear 0.4s;
+}
+
+@keyframes slowDown {
+  100% {
+    transform: translate(-100%);
+    -webkit-transform: translate(-100%);
+    -moz-transform: translate(-100%);
+    -ms-transform: translate(-100%);
+    -o-transform: translate(-100%);
+    opacity: 0;
+  }
+}
